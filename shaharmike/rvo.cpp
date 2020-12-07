@@ -77,15 +77,30 @@ Snitch foo() {
 
 // https://shaharmike.com/cpp/rvo/
 int main() {
-    // Snitch snitch = ExampleRVO(); // 1
-    // ExampleNRVO(); // 2
-    // foo(Snitch()); // 3
-    // Snitch snitch = CreateSnitch(true);  // 4
-    // Snitch snitch = ReturnParameter(global_snitch);  // 5 uncomment
-    // global_snitch
-    // Snitch snitch2 = ReturnGlobal();  // 5
-    // Snitch snitch = CreateSnitch(); // 6
-    // Snitch s = CreateSnitch(); // 7
-    // s = CreateSnitch(); // 7
-    Snitch s = foo();  // 8
+    // 1
+    // Snitch snitch = ExampleRVO();
+
+    // 2 Named Return Value Optimization (NRVO)
+    // ExampleNRVO();
+
+    // 3 Copy Elision
+    // foo(Snitch());
+
+    // When RVO doesn’t / can’t happen
+    // 4 Deciding on Instance at Runtime
+    // Snitch snitch = CreateSnitch(true);
+
+    // 5 Returning a Parameter / Global
+    // Snitch snitch = ReturnParameter(global_snitch);
+    // Snitch snitch2 = ReturnGlobal();
+
+    // 6 Returning by std::move()
+    // Snitch snitch = CreateSnitch();
+
+    // 7 Assignment
+    // Snitch s = CreateSnitch();
+    // s = CreateSnitch();
+
+    // 8 Returning Member
+    Snitch s = foo();
 }
